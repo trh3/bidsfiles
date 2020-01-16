@@ -19,4 +19,4 @@ class BIDSFiles:
         image_protodb = [parse.parse(format = bids_parse_string, string=os.path.basename(f)) for f in image_filenames]
         image_db = pd.DataFrame(image_protodb)
         image_db['filepath'] = image_filenames
-
+        return image_db
