@@ -14,9 +14,23 @@ class BIDSFiles:
         self.image_db = self.image_db_constructor(images)
 
     def image_db_constructor(self, image_filenames):
-        bids_parse_string = "sub-{sub}_ses-{ses}_{tags}_{modality}_{filetype}"
-
-        image_protodb = [parse.parse(format = bids_parse_string, string=os.path.basename(f)) for f in image_filenames]
+        image_protodb = [self.filename_parser(s) for s in image_filenames]
         image_db = pd.DataFrame(image_protodb)
         image_db['filepath'] = image_filenames
         return image_db
+
+
+    def filename_parser(self,file_path):
+        print(file_path)
+        split = os.path.basename(file_path).split("_")
+        tag_parse = "{key}-{value}"
+        modality_parse = "{modality}.{file_ext}"
+        tags = [parse.parse(format = tag_parse, string = s, evaluate_result=True).named for s in split[:-1]]
+        modality = parse.parse(format = modality_parse, string = split[-1], evaluate_result=True).named
+        print(modality)
+        print(split[-1])
+        tags = {d['key']:d['value'] for d in tags}
+        tags.update(modality)
+        print(tags)
+        return tags
+
