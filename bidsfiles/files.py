@@ -3,11 +3,11 @@ import os
 import pandas as pd
 import parse
 import logging
-
+import sqlalchemy
 
 class BIDSFiles:
     def __init__(self, root_dir):
-        logging.basicConfig(level  = 'INFO')
+        logging.basicConfig(level = 'INFO')
         files = glob.glob(os.path.join(root_dir, "**", "*"),recursive=True)
         images = [f for f in files if '.nii' in f]
         jsons = [f for f in files if '.json' in f]

@@ -1,0 +1,87 @@
+{
+  "name": "bids_schema",
+  "description": "",
+  "separator": "_",
+  "file_structure": [
+    {
+      "name": "Subject Folders",
+      "key": "sub",
+      "level": 1,
+      "format": "sub-{subid}"
+    },
+    {
+      "name": "Session Folders",
+      "key": "ses",
+      "level": 2,
+      "format": "sub-{sesid}"
+    },
+    {
+      "name": "Anatomical Scans",
+      "key": "anat",
+      "level": 3,
+      "format": "anat"
+    },
+    {
+      "name": "Functional Scans",
+      "key": "func",
+      "level": 3,
+      "format": "func"
+    }
+  ],
+  "files": {
+"bold": {
+  "name": "BOLD MRI Scan",
+  "format": "{sub}_<ses>_<task>_<run>_<[funcopttags]>",
+  "extensions": [".nii", ".nii.gz"],
+  "metadata": "true",
+  "derivatives": [
+    "bold_preproc",
+    "bold_postproc"
+  ]
+},
+"T1w": {
+  "name": "T1w Scans",
+  "format": "{sub}_<ses>_<run>_<[anatopttags]>",
+  "extensions": [".nii", ".nii.gz"],
+  "metadata": "true",
+  "derivatives": ["bold_preproc", "bold_postproc"]
+}
+},
+  "tags": [
+    {
+      "name": "Subject ID",
+      "key": "sub",
+      "format": "sub-{VALUE}",
+      "inherit": true,
+      "group": ""
+    },
+    {
+      "name": "Session ID",
+      "key": "ses",
+      "format": "sub-{VALUE}",
+      "inherit": true,
+      "group": ""
+    },
+    {
+      "name": "Task ID",
+      "key": "task",
+      "format": "task-{VALUE}",
+      "inherit": false,
+      "group": ""
+    },
+    {
+      "name": "Run ID",
+      "key": "run",
+      "format": "run-{VALUE}",
+      "inherit": false,
+      "group": ""
+    },
+    {
+      "name": "desc tags",
+      "key": "desc",
+      "format": "desc-{VALUE}",
+      "inherit": false,
+      "group": "func_opt_tags"
+    }
+  ]
+}
